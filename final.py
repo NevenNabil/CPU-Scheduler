@@ -42,6 +42,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
         self.process_no_2.textChanged.connect(lambda: self.disable_ok())
         self.process_no_3.textChanged.connect(lambda: self.disable_ok())
         self.process_no_4.textChanged.connect(lambda: self.disable_ok())
+        self.q_time.textChanged.connect(lambda: self.disable_ok())
         self.ok_1.clicked.connect(lambda: self.handle_line_edits_1())
         self.ok_2.clicked.connect(lambda: self.handle_line_edits_2())
         self.ok_3.clicked.connect(lambda: self.handle_line_edits_3())
@@ -49,7 +50,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
         self.simulate_1.clicked.connect(lambda: self.simulate_1_handler())
         self.simulate_2.clicked.connect(lambda: self.simulate_2_handler())
         self.simulate_3.clicked.connect(lambda: self.simulate_3_handler())
-        self.simulate_4.clicked.connect(lambda: self.chart4())
+        self.simulate_4.clicked.connect(lambda: self.simulate_4_handler())
 
         self.show()
 
@@ -71,8 +72,8 @@ class MainApp(QMainWindow, CPU_Scheduler):
 
     def handle_line_edits_4(self):
         RR_sched.n4 = int(self.process_no_4.text())
-        self.tableWidget_4.setRowCount(int(RR_sched.n4))
         RR_sched.q = int(self.q_time.text())
+        self.tableWidget_4.setRowCount(int(RR_sched.n4))
 
 ############################################################
     # disable ok button if no text ##############################
@@ -87,7 +88,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
             self.ok_2.setEnabled(True)
         if len(self.process_no_3.text()) > 0:
             self.ok_3.setEnabled(True)
-        if len(self.process_no_4.text()) > 0 or len(self.q_time.text()) > 0:
+        if ((len(self.process_no_4.text()) > 0) and (len(self.q_time.text()) > 0)):
             self.ok_4.setEnabled(True)
 
     def restrict_input(self):
@@ -101,6 +102,8 @@ class MainApp(QMainWindow, CPU_Scheduler):
     def simulate_1_handler(self):
         try:
             #inputs
+            while not (inputQueue.empty()):
+                k = inputQueue.get()
             for i in range(int(FCFS.n1)):
                 arrival = self.tableWidget_1.item(i, 1).text()
                 burst = self.tableWidget_1.item(i, 2).text()
@@ -110,7 +113,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
             simulate_fcfs()
             self.chart1()
         except Exception as e:
-            ctypes.windll.user32.MessageBoxW(0, "Please fill all data", "Error", 1)
+            ctypes.windll.user32.MessageBoxW(0, "Data entered is incomplete or invalid.", "Error", 1)
 
     def simulate_2_handler(self):
         try:
@@ -126,11 +129,12 @@ class MainApp(QMainWindow, CPU_Scheduler):
             simulate_sjf()
             self.chart2()
         except Exception as e:
-            ctypes.windll.user32.MessageBoxW(0, "Please fill all data", "Error", 1)
+            ctypes.windll.user32.MessageBoxW(0, "Data entered is incomplete or invalid.", "Error", 1)
 
     def simulate_3_handler(self):
-        # try:
+        try:
             #inputs
+            Priority_sched.process.clear()
             for i in range(int(Priority_sched.N3)): 
                 arrival = self.tableWidget_3.item(i, 1).text()
                 priority = self.tableWidget_3.item(i, 2).text()
@@ -139,12 +143,14 @@ class MainApp(QMainWindow, CPU_Scheduler):
             #output
             simulate_pri()
             self.chart3()
-        # except Exception as e:
-        #     ctypes.windll.user32.MessageBoxW(0, "Please fill all data", "Error", 1)
+        except Exception as e:
+            ctypes.windll.user32.MessageBoxW(0, "Data entered is incomplete or invalid.", "Error", 1)
 
     def simulate_4_handler(self):
         try:
             #inputs
+            while not (inputQueue_RR.empty()):
+                k = inputQueue_RR.get()
             for i in range(int(RR_sched.n4)):
                 arrival = self.tableWidget_4.item(i, 1).text()
                 burst = self.tableWidget_4.item(i, 2).text()
@@ -154,7 +160,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
             simulate_rr()
             self.chart4()
         except Exception as e:
-            ctypes.windll.user32.MessageBoxW(0, "Please fill all data", "Error", 1)
+            ctypes.windll.user32.MessageBoxW(0, "Data entered is incomplete or invalid.", "Error", 1)
 
 
     ############################################################
@@ -169,7 +175,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
 
         #draw
         f = 860 / FCFS.totalBurstTime  #drawing factor
-        time = 0.0
+        time = list(outputQueue.queue)[0]['arrival']
         for s in list(outputQueue.queue):
             if(s['arrival'] > time):
                 item = scene.addText(str(time), QFont('Arial', 11))
@@ -178,8 +184,8 @@ class MainApp(QMainWindow, CPU_Scheduler):
             
             rect = scene.addRect(time * f, 50, s['burst'] * f, 40, redPen, whiteBrush)
             #texts:
-            item = scene.addText("P." + self.tableWidget_1.item(s['pid']-1, 0).text(), QFont('Arial', 13))
-            item.setPos((time + (s['burst'] / 2)) * f - 7, 57)
+            item = scene.addText(self.tableWidget_1.item(s['pid']-1, 0).text(), QFont('Arial', 13))
+            item.setPos((time + (s['burst'] / 2)) * f - 6, 57)
             item = scene.addText(str(time), QFont('Arial', 11))
             item.setPos((time) * f - 12, 100)            
 
@@ -207,8 +213,8 @@ class MainApp(QMainWindow, CPU_Scheduler):
         for s in (Shortest_Job_First.cpu):
             rect = scene.addRect(time * f, 50, s[0] * f, 40, redPen, whiteBrush)
             #texts:
-            item = scene.addText("P." + self.tableWidget_2.item(s[1]-1, 0).text(), QFont('Arial', 13))
-            item.setPos((time + (s[0] / 2)) * f - 7, 57)
+            item = scene.addText(self.tableWidget_2.item(s[1]-1, 0).text(), QFont('Arial', 13))
+            item.setPos((time + (s[0] / 2)) * f - 6, 57)
             item = scene.addText(str(time), QFont('Arial', 11))
             item.setPos((time) * f - 12, 100)            
 
@@ -232,7 +238,7 @@ class MainApp(QMainWindow, CPU_Scheduler):
 
         #draw
         f = 860 / Priority_sched.time  #drawing factor
-        time = 0.0
+        time = (Priority_sched.OutputPriority)[0]['arrival']
         for s in (Priority_sched.OutputPriority):
             if(s['arrival'] > time):
                 item = scene.addText(str(time), QFont('Arial', 11))
@@ -240,15 +246,15 @@ class MainApp(QMainWindow, CPU_Scheduler):
                 time = s['arrival']
             rect = scene.addRect(time * f, 50, s['length'] * f, 40, redPen, whiteBrush)
             #texts:
-            item = scene.addText("P." + self.tableWidget_3.item(s['process']-1, 0).text(), QFont('Arial', 13))
-            item.setPos((time + (s['length'] / 2)) * f - 7, 57)
-            item = scene.addText(str(time), QFont('Arial', 11))
+            item = scene.addText(self.tableWidget_3.item(s['process']-1, 0).text(), QFont('Arial', 13))
+            item.setPos((time + (s['length'] / 2)) * f - 6, 57)
+            item = scene.addText(str(round(time,3)), QFont('Arial', 11))
             item.setPos((time) * f - 12, 100)            
 
             time += s['length']
 
         #last departure time text
-        item = scene.addText(str(time), QFont('Arial', 11))
+        item = scene.addText(str(round(time,3)), QFont('Arial', 11))
         item.setPos(time * f - 12, 100)
         
         self.graphicsView_3.setScene(scene)
@@ -265,21 +271,21 @@ class MainApp(QMainWindow, CPU_Scheduler):
 
         #draw
         f = 860 / RR_sched.totalBurstTime_RR  #drawing factor
-        time = 0.0
+        time = list(outputQueue_RR.queue)[0]['arrival']
         for s in list(outputQueue_RR.queue):
             if(s['arrival'] > time):
                 item = scene.addText(str(time), QFont('Arial', 11))
                 item.setPos(time * f - 12, 100)
                 time = s['arrival']
             
-            rect = scene.addRect(time * f, 50, s['burst'] * f, 40, redPen, whiteBrush)
+            rect = scene.addRect(time * f, 50, s['slice'] * f, 40, redPen, whiteBrush)
             #texts:
-            item = scene.addText("P." + self.tableWidget_4.item(s['pid']-1, 0).text(), QFont('Arial', 13))
-            item.setPos((time + (s['burst'] / 2)) * f - 7, 57)
+            item = scene.addText(self.tableWidget_4.item(s['pid']-1, 0).text(), QFont('Arial', 13))
+            item.setPos((time + (s['slice'] / 2)) * f - 6, 57)
             item = scene.addText(str(time), QFont('Arial', 11))
             item.setPos((time) * f - 12, 100)            
 
-            time += s['burst']
+            time += s['slice']
 
         #last departure time text
         item = scene.addText(str(time), QFont('Arial', 11))

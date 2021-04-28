@@ -33,13 +33,14 @@ def simulate_fcfs():
         inputQueue.task_done()    
 
     time = 0.0
+    global totalWaitingTime
+    totalWaitingTime = 0.0
         
     #output
     while not inputQueue.empty():
             p = inputQueue.get()
             time = p.burst + (time if p.arrival <= time else p.arrival)
             p.departure = time
-            global totalWaitingTime
             totalWaitingTime += p.waitingTime()
             outputQueue.put({'pid': p.pid, 'burst': p.burst, 'arrival': p.arrival})
 
@@ -50,7 +51,7 @@ def simulate_fcfs():
     for n in list(outputQueue.queue):
         print(n)
     global avgWaitingTime
-    avgWaitingTime = totalWaitingTime / int(n1)
+    avgWaitingTime = round(totalWaitingTime / int(n1), 3)
     print(avgWaitingTime)
 
 

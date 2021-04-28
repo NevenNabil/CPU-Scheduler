@@ -30,39 +30,48 @@ outputQueue_RR = queue.Queue()
 totalWaitingTime_RR = 0.0
 
 def simulate_rr():
+    global q
     global totalBurstTime_RR
     totalBurstTime_RR = 0.0
+    totalWaitingTime_RR = 0.0
+
     #clear last outputs
     while not outputQueue_RR.empty():
         try:
             outputQueue_RR.get(False)
         except Empty:
             continue
-        imputQueue_RR.task_done()    
+        outputQueue_RR.task_done()    
 
     time = 0.0
+    procs = []
         
     #output
     while (1):
-        if not inputQueue_RR.empty():
-            p = inputQueue_RR.get()
-            if (time <= p.arrival):
-                readyQ.append(p)
-            else:
-                inputQueue_RR.put(p)
+        while not (inputQueue_RR.empty()):
+            procs.append(inputQueue_RR.get())
+            if (time >= procs[-1].arrival):
+                readyQ.append(procs[-1])
+                procs.pop(-1)
 
-        if not readyQ.empty():   
+        if procs:
+            for i in range(len(procs)):
+                inputQueue_RR.put(procs[-(i+1)])
+        procs = []
+
+        if readyQ:   
             #slice 
             s = q if readyQ[0].remaining >= q else readyQ[0].remaining #slice
             s_pid = readyQ[0].pid
             s_arrival = readyQ[0].arrival
             time += s
-            outputQueue_RR.put({'pid': s_pid, 'slice': s, 'arrival': s.arrival})
+            outputQueue_RR.put({'pid': s_pid, 'slice': s, 'arrival': s_arrival})
             
             #process to the end of the ready_queue or terminate
             readyQ[0].remaining -= s
             if (readyQ[0].remaining == 0):
                 readyQ[0].departure = time
+                print (time)
                 totalWaitingTime_RR += readyQ[0].waitingTime()
                 readyQ.pop(0)
             else:
@@ -70,7 +79,12 @@ def simulate_rr():
                 readyQ.append(temp)
                 readyQ.pop(0)
 
-        if readyQ.empty(): break  
+        else:
+            if not (inputQueue_RR.empty()):
+                fp = inputQueue_RR.get()
+                time = fp.arrival
+                inputQueue_RR.put(fp)
+            else: break  
 
     totalBurstTime_RR = time
 
@@ -78,7 +92,7 @@ def simulate_rr():
     for n in list(outputQueue_RR.queue):
         print(n)
     global avgWaitingTime_RR
-    avgWaitingTime_RR = totalWaitingTime_RR / int(n1)
+    avgWaitingTime_RR = round(totalWaitingTime_RR / int(n4), 3)
     print(avgWaitingTime_RR)
 
 

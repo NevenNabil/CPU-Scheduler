@@ -164,6 +164,7 @@ def simulate_sjf():
             Average += processes[i][3]
 
         Average /= int(N)
+        Average = round(Average, 3)
         print("Average waiting time = " + str(Average))
         print(cpu)
         print(os)

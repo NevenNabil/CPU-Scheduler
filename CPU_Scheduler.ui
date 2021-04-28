@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="CPU_Scheduler.qrc">
-    <normaloff>:/newPrefix/process schedualing.png</normaloff>:/newPrefix/process schedualing.png</iconset>
+    <normaloff>:/newPrefix/icon.png</normaloff>:/newPrefix/icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">
@@ -646,13 +646,6 @@ QComboBox
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="1" column="0">
-           <widget class="Line" name="line_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QFrame" name="frame">
             <property name="sizePolicy">
@@ -726,7 +719,7 @@ QPushButton:pressed
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QPushButton" name="btn_2">
+              <widget class="QPushButton" name="btn_4">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -761,10 +754,9 @@ QPushButton:pressed
 }</string>
                </property>
                <property name="text">
-                <string>Shortest 
-Job First 
+                <string>Round Robin 
 Scheduling 
-(SJF)</string>
+(RR)</string>
                </property>
               </widget>
              </item>
@@ -810,7 +802,7 @@ QPushButton{
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QPushButton" name="btn_4">
+              <widget class="QPushButton" name="btn_2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -845,9 +837,10 @@ QPushButton{
 }</string>
                </property>
                <property name="text">
-                <string>Round Robin 
+                <string>Shortest 
+Job First 
 Scheduling 
-(RR)</string>
+(SJF)</string>
                </property>
               </widget>
              </item>
@@ -888,6 +881,13 @@ Scheduling
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="Line" name="line_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
            </widget>
           </item>
           <item row="0" column="0" colspan="2">
@@ -1334,10 +1334,10 @@ QPushButton:pressed
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="page_2">
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+            <widget class="QWidget" name="page_4">
+             <layout class="QVBoxLayout" name="verticalLayout_13">
               <item>
-               <widget class="QLabel" name="label_4">
+               <widget class="QLabel" name="label_6">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1355,7 +1355,7 @@ QPushButton:pressed
                  <string notr="true"> background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0  rgb(208, 0, 0), stop: 0.5 rgb(170, 0, 0));</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;SJF Algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;RR Algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::RichText</enum>
@@ -1363,11 +1363,11 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="Line" name="line_3">
+               <widget class="Line" name="line_9">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
+                  <verstretch>10</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
@@ -1377,8 +1377,7 @@ QPushButton:pressed
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">border:none;
-</string>
+                 <string notr="true">border:none</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1386,9 +1385,9 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
                 <item>
-                 <widget class="QLineEdit" name="process_no_2">
+                 <widget class="QLineEdit" name="process_no_4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -1416,37 +1415,35 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="preemptive_1">
+                 <widget class="QLineEdit" name="q_time">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>300</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
                   <property name="styleSheet">
-                   <string notr="true">
-	font: 75  10pt bold &quot;Perpetua Titling MT&quot;;
-color: rgb(0, 0, 0);
-</string>
+                   <string notr="true">font: 75  9pt &quot;MS Shell Dlg 2&quot;;
+
+
+	color: rgb(0, 0, 0);</string>
                   </property>
                   <property name="text">
-                   <string>Preemptive</string>
+                   <string/>
                   </property>
-                  <property name="checked">
-                   <bool>false</bool>
+                  <property name="placeholderText">
+                   <string>Enter the time quantum (q)</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="non_preemptive_1">
-                  <property name="styleSheet">
-                   <string notr="true">	font: 75  10pt bold &quot;Perpetua Titling MT&quot;;
-color: rgb(0, 0, 0);</string>
-                  </property>
-                  <property name="text">
-                   <string>Non-Preemptive</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="ok_2">
+                 <widget class="QPushButton" name="ok_4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1482,7 +1479,7 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_16">
+                 <widget class="Line" name="line_14">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1504,7 +1501,7 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTableWidget" name="tableWidget_2">
+                 <widget class="QTableWidget" name="tableWidget_4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -1574,7 +1571,7 @@ border:none;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="simulate_2">
+                 <widget class="QPushButton" name="simulate_4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1612,29 +1609,7 @@ QPushButton:pressed
                </layout>
               </item>
               <item>
-               <widget class="Line" name="line_8">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>700</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border:none;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="Line" name="line_12">
+               <widget class="Line" name="line_10">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1644,8 +1619,11 @@ QPushButton:pressed
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>3</height>
+                  <height>10</height>
                  </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border:none</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1653,7 +1631,7 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_6">
+               <widget class="QFrame" name="frame_12">
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -1666,27 +1644,27 @@ QPushButton:pressed
                 <property name="lineWidth">
                  <number>2</number>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_4">
+                <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
-                  <widget class="QScrollArea" name="scrollArea_3">
+                  <widget class="QScrollArea" name="scrollArea_5">
                    <property name="styleSheet">
                     <string notr="true">border:none;</string>
                    </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
                    </property>
-                   <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                   <widget class="QWidget" name="scrollAreaWidgetContents_5">
                     <property name="geometry">
                      <rect>
                       <x>0</x>
                       <y>0</y>
                       <width>884</width>
-                      <height>193</height>
+                      <height>205</height>
                      </rect>
                     </property>
-                    <layout class="QGridLayout" name="gridLayout_7">
+                    <layout class="QGridLayout" name="gridLayout_9">
                      <item row="0" column="0">
-                      <widget class="QGraphicsView" name="graphicsView_2"/>
+                      <widget class="QGraphicsView" name="graphicsView_4"/>
                      </item>
                     </layout>
                    </widget>
@@ -1696,7 +1674,7 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_7">
+               <widget class="QFrame" name="frame_9">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1715,9 +1693,9 @@ QPushButton:pressed
                 <property name="lineWidth">
                  <number>2</number>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout">
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
-                  <widget class="QLabel" name="label_8">
+                  <widget class="QLabel" name="label_12">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -1743,7 +1721,7 @@ QPushButton:pressed
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="lbl_waitingtime_2">
+                  <widget class="QLabel" name="lbl_waitingtime_4">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -2198,10 +2176,10 @@ QPushButton:pressed
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="page_4">
+            <widget class="QWidget" name="page_2">
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
-               <widget class="QLabel" name="label_6">
+               <widget class="QLabel" name="label_4">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -2219,7 +2197,7 @@ QPushButton:pressed
                  <string notr="true"> background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0  rgb(208, 0, 0), stop: 0.5 rgb(170, 0, 0));</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;RR Algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;SJF Algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::RichText</enum>
@@ -2227,11 +2205,11 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="Line" name="line_9">
+               <widget class="Line" name="line_3">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
-                  <verstretch>10</verstretch>
+                  <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
                 <property name="minimumSize">
@@ -2241,7 +2219,8 @@ QPushButton:pressed
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">border:none</string>
+                 <string notr="true">border:none;
+</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -2249,9 +2228,9 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_6">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
-                 <widget class="QLineEdit" name="process_no_4">
+                 <widget class="QLineEdit" name="process_no_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
@@ -2279,35 +2258,37 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="q_time">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>300</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
+                 <widget class="QRadioButton" name="preemptive_1">
                   <property name="styleSheet">
-                   <string notr="true">font: 75  9pt &quot;MS Shell Dlg 2&quot;;
-
-
-	color: rgb(0, 0, 0);</string>
+                   <string notr="true">
+	font: 75  10pt bold &quot;Perpetua Titling MT&quot;;
+color: rgb(0, 0, 0);
+</string>
                   </property>
                   <property name="text">
-                   <string/>
+                   <string>Preemptive</string>
                   </property>
-                  <property name="placeholderText">
-                   <string>Enter the time quantum (q)</string>
+                  <property name="checked">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="ok_4">
+                 <widget class="QRadioButton" name="non_preemptive_1">
+                  <property name="styleSheet">
+                   <string notr="true">	font: 75  10pt bold &quot;Perpetua Titling MT&quot;;
+color: rgb(0, 0, 0);</string>
+                  </property>
+                  <property name="text">
+                   <string>Non-Preemptive</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="ok_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2343,7 +2324,7 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_14">
+                 <widget class="Line" name="line_16">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2365,7 +2346,7 @@ QPushButton:pressed
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTableWidget" name="tableWidget_4">
+                 <widget class="QTableWidget" name="tableWidget_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -2435,7 +2416,7 @@ border:none;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="simulate_4">
+                 <widget class="QPushButton" name="simulate_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -2473,7 +2454,7 @@ QPushButton:pressed
                </layout>
               </item>
               <item>
-               <widget class="Line" name="line_10">
+               <widget class="Line" name="line_12">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -2483,11 +2464,8 @@ QPushButton:pressed
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>10</height>
+                  <height>3</height>
                  </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border:none</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -2495,7 +2473,7 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_12">
+               <widget class="QFrame" name="frame_6">
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -2508,27 +2486,27 @@ QPushButton:pressed
                 <property name="lineWidth">
                  <number>2</number>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_11">
+                <layout class="QVBoxLayout" name="verticalLayout_4">
                  <item>
-                  <widget class="QScrollArea" name="scrollArea_5">
+                  <widget class="QScrollArea" name="scrollArea_3">
                    <property name="styleSheet">
                     <string notr="true">border:none;</string>
                    </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
                    </property>
-                   <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                   <widget class="QWidget" name="scrollAreaWidgetContents_3">
                     <property name="geometry">
                      <rect>
                       <x>0</x>
                       <y>0</y>
                       <width>884</width>
-                      <height>205</height>
+                      <height>196</height>
                      </rect>
                     </property>
-                    <layout class="QGridLayout" name="gridLayout_9">
+                    <layout class="QGridLayout" name="gridLayout_7">
                      <item row="0" column="0">
-                      <widget class="QGraphicsView" name="graphicsView_4"/>
+                      <widget class="QGraphicsView" name="graphicsView_2"/>
                      </item>
                     </layout>
                    </widget>
@@ -2538,7 +2516,7 @@ QPushButton:pressed
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="frame_9">
+               <widget class="QFrame" name="frame_7">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -2557,9 +2535,9 @@ QPushButton:pressed
                 <property name="lineWidth">
                  <number>2</number>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
-                  <widget class="QLabel" name="label_12">
+                  <widget class="QLabel" name="label_8">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -2585,7 +2563,7 @@ QPushButton:pressed
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="lbl_waitingtime_4">
+                  <widget class="QLabel" name="lbl_waitingtime_2">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
